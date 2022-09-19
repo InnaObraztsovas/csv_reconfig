@@ -1,0 +1,15 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>CSV Import ?Export</title>
+</head>
+<body>
+<h3>Upload CSV File and click import to reconfigure the file</h3>
+<form action="run.php" method="POST" enctype="multipart/form-data" name="import">
+    <input type="file" accept=".csv" name="csv" ><br><br>
+    <input type="submit" name="import" value="Import">
+</form>
+</body>
+</html>
