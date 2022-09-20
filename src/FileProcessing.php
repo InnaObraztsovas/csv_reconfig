@@ -13,11 +13,11 @@ class FileProcessing
         );
     }
 
-    public function reconfig(array $data): array
-    {
-        foreach ($data as &$input) {
-            $input[1] = $this->formatPhoneNumber($input[1]);
-        }
-        return $data;
-    }
+//    public function reconfig(array $data): array
+//    {
+//        foreach ($data as &$input) {
+//            $input[1] = $this->formatPhoneNumber($input[1]);
+//        }
+//        return $data;
+//    }
 }

@@ -2,3 +2,12 @@
 controllers:
     resource: ../src/Controller/
     type: attribute
+
+csv:
+    path: /
+    controller: App\Controller\CsvController::action
+
+csv_run:
+    path: /run-csv
+    controller: App\Controller\CsvController::run
+    methods: POST

@@ -2,42 +2,40 @@
 
 namespace App\Controller;
 
+use App\Entity\CsvFile;
 use App\ExportFile;
 use App\FileInput;
 use App\FileProcessing;
 use App\Message\CsvMessage;
-use App\SaveFile;
+use App\FilePath;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBus;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-class CsvController
+class CsvController extends AbstractController
 {
-    public FileProcessing $fileProcessing;
 
-    public function __construct()
+    public function __construct(public FileProcessing $fileProcessing)
+    {}
+
+    public function action()
     {
-        $this->fileProcessing = new FileProcessing();
+        $action = $this->generateUrl('csv_run');
+        return $this->render('csv-form.html.twig', ['action' => $action]);
     }
 
-    public function run()
+
+    public function run(Request $request, MessageBusInterface $bus)
     {
-
-        if (isset($_POST['import']) & ($_FILES['csv']['size'] > 0)) {
-            $fileName = $_FILES['csv']['tmp_name'];
-            $csv = FileInput::read($fileName);
-            $bus = new MessageBus();
-            $bus->dispatch(new CsvMessage(json_encode($csv)));
-//            $bus->dispatch(new CsvMessage('Look! I created a message!'));
-//            $bus->dispatch(new CsvMessage($csv->getCsv()));
-            $data = $this->fileProcessing->reconfig($csv);
-            $file = SaveFile::save($data);
-            ExportFile::download($file);
-            ExportFile::delete($file);
-        }
-        else{
-            throw new \Exception('Please upload the CSV file');
-        }
-
+        $entity = new CsvFile();
+        $entity->setCsvFile($request->files->get('csv'));
+        $fileName = $entity->getCsvFile();
+        $bus->dispatch(new CsvMessage($fileName));
+        return new Response(
+            'Succeed',
+            Response::HTTP_OK
+        );
     }
-
 }
