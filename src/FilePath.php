@@ -21,6 +21,5 @@ class FilePath
         }
 
       return self::STORAGE_PATH . '/' . $name;
-
     }
 }

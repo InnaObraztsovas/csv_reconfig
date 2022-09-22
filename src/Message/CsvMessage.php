@@ -2,22 +2,22 @@
 
 namespace App\Message;
 
-use App\FileInput;
+use App\FileHandler;
 
 class CsvMessage
 {
     /**
      * @var string
      */
-    private $csvContent;
+    private string $csvContent;
 
     public function __construct(string $csvContent)
     {
         $this->csvContent = $csvContent;
     }
 
-    public function getCsv()
+    public function getCsv(): string
     {
-        return FileInput::read($this->csvContent);
+        return $this->csvContent;
     }
 }
