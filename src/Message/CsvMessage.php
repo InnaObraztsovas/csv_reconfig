@@ -2,7 +2,7 @@
 
 namespace App\Message;
 
-use App\FileHandler;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class CsvMessage
 {
@@ -11,13 +11,15 @@ class CsvMessage
      */
     private string $csvContent;
 
-    public function __construct(string $csvContent)
+    public function __construct(UploadedFile $csvContent)
     {
         $this->csvContent = $csvContent;
     }
 
-    public function getCsv(): string
+
+    public function getFilePath(): string
     {
         return $this->csvContent;
+
     }
 }
