@@ -14,7 +14,6 @@ class CSVProcessor
     {
         $fileHandle = fopen($command->getFilePath(), 'r');
         $this->provider->setFileHandle($fileHandle);
-        $a = $this->provider->getFileHandle();
         $processedFilesIterator = $this->processRows($this->provider->getRowsIterator());
         $this->persister->persist($processedFilesIterator);
         fclose($fileHandle);
