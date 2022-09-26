@@ -12,6 +12,6 @@ RUN pecl install zip \
 
 RUN a2enmod rewrite
 
-COPY etc/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY 8.1-apache/etc/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf
 
 WORKDIR /var/www/html

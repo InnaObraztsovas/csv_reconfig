@@ -2,6 +2,9 @@
 
 namespace App;
 
+use http\Encoding\Stream;
+use phpDocumentor\Reflection\Types\Resource_;
+
 class CSVDataProvider implements DataProvider
 {
 
@@ -9,13 +12,13 @@ class CSVDataProvider implements DataProvider
 
     public function setFileHandle($handle): void
     {
-        $this->handle = $handle;
+      $this->handle = $handle;
     }
 
     /**
      * @return mixed
      */
-    public function getFileHandle()
+    public function getFileHandle(): mixed
     {
         return $this->handle;
     }
