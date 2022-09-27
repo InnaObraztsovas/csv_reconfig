@@ -4,7 +4,7 @@ services:
   server:
     build:
       context: .docker/php/8.1-apache
-      dockerfile: .docker/php/Dockerfile
+      dockerfile: php.Dockerfile
     ports:
       - "80:80"
     volumes:
@@ -13,14 +13,12 @@ services:
   messages:
     build:
       context: .
-      dockerfile: .docker/messages/Dockerfile
+      dockerfile: .docker/messages/message.Dockerfile
     tty: true
     stdin_open: true
-    environment:
-        - DATABASE_URL="mysql://root:secret@database:3306/symfony"
-        - MESSENGER_TRANSPORT_DSN=doctrine://default
+    command: [ "./bin/console", "messenger:consume", "async", "-vv" ]
     volumes:
-        - .:/var/www/html
+      - .:/var/www/html
 
   composer:
     image: composer/composer

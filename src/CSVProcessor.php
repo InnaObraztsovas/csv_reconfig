@@ -2,17 +2,15 @@
 
 namespace App;
 
-use App\Message\CsvMessage;
-
 class CSVProcessor
 {
     public function __construct(private PhoneDataProcessor $processor, private CSVDataProvider $provider, private CSVDataPersister $persister)
     {
     }
 
-    public function handle(CsvMessage $command): void
+    public function handle(string $filepath): void
     {
-        $fileHandle = fopen($command->getFilePath(), 'r');
+        $fileHandle = fopen($filepath, 'r');
         $this->provider->setFileHandle($fileHandle);
         $processedFilesIterator = $this->processRows($this->provider->getRowsIterator());
         $this->persister->persist($processedFilesIterator);
